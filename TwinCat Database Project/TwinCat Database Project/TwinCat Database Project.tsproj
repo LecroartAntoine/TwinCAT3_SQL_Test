@@ -18,7 +18,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{59B2C31B-5693-434C-9605-19122633ED50}" Name="AddDataToDB" PrjFilePath="AddDataToDB\AddDataToDB.plcproj" TmcFilePath="AddDataToDB\AddDataToDB.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="AddDataToDB\AddDataToDB.tmc" TmcHash="{A148C387-07AE-0813-080D-EDBFAF18AE35}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="AddDataToDB\AddDataToDB.tmc" TmcHash="{71D5D338-6322-D9B0-7D21-825A66C8FC24}">
 					<Name>AddDataToDB Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

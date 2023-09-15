@@ -3,12 +3,26 @@
   <POU Name="MAIN" Id="{9ad4ba43-e79f-4762-b016-8ed016718c25}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	timer : TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[PRG_SEQUENCE();]]></ST>
+      <ST><![CDATA[timer(IN := TRUE, PT := T#5S);
+IF timer.Q THEN
+	PeriodicMesure(bBool := TRUE);
+	timer(IN := NOT PeriodicMesure.isfinished());
+END_IF
+
+
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="25" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="8" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

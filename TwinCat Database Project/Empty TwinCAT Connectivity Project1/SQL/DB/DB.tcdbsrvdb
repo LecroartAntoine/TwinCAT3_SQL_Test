@@ -3,7 +3,7 @@
   <ID>1</ID>
   <Name>DB</Name>
   <ServerName>localhost\SQLEXPRESS</ServerName>
-  <DatabaseName>TutorialDB</DatabaseName>
+  <DatabaseName>TwinCATDB</DatabaseName>
   <TableName />
   <Authentication>True</Authentication>
   <UserID>User</UserID>
