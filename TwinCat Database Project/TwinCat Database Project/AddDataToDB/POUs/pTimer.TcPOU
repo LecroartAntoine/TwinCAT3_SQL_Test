@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="pTimer" Id="{8fcbf0f7-6c45-4986-b034-e15f9132d3c4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM pTimer
+VAR
+	timer : TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[timer(IN := TRUE, PT := T#5S);
+IF timer.Q THEN
+	PeriodicMesure();
+	timer(IN := NOT PeriodicMesure.isfinished());
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="pTimer">
+      <LineId Id="6" Count="4" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

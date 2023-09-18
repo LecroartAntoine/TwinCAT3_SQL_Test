@@ -27,6 +27,9 @@
     <Compile Include="POUs\PeriodicMesure.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\pTimer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />

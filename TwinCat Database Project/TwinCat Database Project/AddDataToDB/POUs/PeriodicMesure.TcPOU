@@ -2,9 +2,6 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="PeriodicMesure" Id="{bd7a1e3e-4ebf-41f5-baf8-0d762dd80132}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PeriodicMesure
-VAR_INPUT
-	bBool : BOOL;
-END_VAR
 VAR
 	fbSQLDatabase : FB_SQLDatabaseEvt(sNetID := '', tTimeout := T#5S);
 	fbSQLCommand : FB_SQLCommandEvt(sNetID := '', tTimeOut := T#5S);
@@ -19,7 +16,7 @@ END_VAR]]></Declaration>
       <ST><![CDATA[CASE step OF
 	
 	OPEN_CONNECTION:
-		bBool := FALSE;
+
 		IF fbSQLDatabase.Connect(1) THEN
 			step := CREATE_MESURE;
 		END_IF
@@ -48,9 +45,8 @@ END_VAR]]></Declaration>
 		END_IF
 		
 	FINISH:
-		IF bBool AND fbSQLDatabase.Disconnect() THEN
-			step := OPEN_CONNECTION; 
-		END_IF
+		step := OPEN_CONNECTION; 
+
 		
 END_CASE]]></ST>
     </Implementation>
@@ -59,7 +55,7 @@ END_CASE]]></ST>
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF step = CLOSE_CONNECTION THEN
+        <ST><![CDATA[IF step = FINISH THEN
 	isfinished := TRUE;
 ELSE
 	isfinished := FALSE;
@@ -72,7 +68,7 @@ END_IF]]></ST>
       <LineId Id="19" Count="25" />
       <LineId Id="65" Count="0" />
       <LineId Id="61" Count="0" />
-      <LineId Id="63" Count="1" />
+      <LineId Id="64" Count="0" />
       <LineId Id="62" Count="0" />
       <LineId Id="50" Count="0" />
       <LineId Id="5" Count="0" />
