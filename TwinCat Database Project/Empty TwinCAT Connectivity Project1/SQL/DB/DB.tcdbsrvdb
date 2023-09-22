@@ -3,7 +3,7 @@
   <ID>1</ID>
   <Name>DB</Name>
   <ServerName>localhost\SQLEXPRESS</ServerName>
-  <DatabaseName>TwinCATDB</DatabaseName>
+  <DatabaseName>TwinCATSQL</DatabaseName>
   <TableName />
   <Authentication>True</Authentication>
   <UserID>User</UserID>
@@ -21,6 +21,7 @@
   <DBValueType>NONE</DBValueType>
   <DBType>MS_Server</DBType>
   <OdbcSubType>Unknown</OdbcSubType>
+  <DriverType>Unknown</DriverType>
   <Temporary>False</Temporary>
   <Disabled>False</Disabled>
   <Description />

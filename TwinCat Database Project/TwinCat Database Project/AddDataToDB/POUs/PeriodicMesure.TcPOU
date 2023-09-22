@@ -6,11 +6,8 @@ VAR
 	fbSQLDatabase : FB_SQLDatabaseEvt(sNetID := '', tTimeout := T#5S);
 	fbSQLCommand : FB_SQLCommandEvt(sNetID := '', tTimeOut := T#5S);
 	step : (OPEN_CONNECTION, CREATE_MESURE, INSERT_MESURE, CLOSE_CONNECTION, FINISH) := OPEN_CONNECTION;
-	CMD_1 : STRING(5000);
-	CMD_2 : STRING(5000);
-	sCMD : STRING(5000);
-	random : DRAND;
-	rNumber : LREAL;
+	CMD : STRING(5000);
+
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE step OF
@@ -27,15 +24,11 @@ END_VAR]]></Declaration>
 		END_IF
 		
 	INSERT_MESURE:
-		random();
-		rNumber := random.Num * 4 - 2;
 	
-		CMD_1 := 'INSERT INTO mesure (m_date, m_value) VALUES (CONVERT(varchar(20), GETDATE(), 108), ';
-		CMD_2 := ')';
+		CMD := 'INSERT INTO mesure (date_str) VALUES (CONVERT(varchar(20), GETDATE(), 108));';
 		
-		sCMD := CONCAT(CMD_1, CONCAT(LREAL_TO_FMTSTR(rNumber, 5, TRUE), CMD_2));
 		
-		IF fbSQLCommand.Execute(ADR(sCMD), SIZEOF(sCMD)) THEN
+		IF fbSQLCommand.Execute(ADR(CMD), SIZEOF(CMD)) THEN
 			step := CLOSE_CONNECTION;
 		END_IF
 	
@@ -65,7 +58,9 @@ END_IF]]></ST>
     <LineIds Name="PeriodicMesure">
       <LineId Id="16" Count="2" />
       <LineId Id="60" Count="0" />
-      <LineId Id="19" Count="25" />
+      <LineId Id="19" Count="9" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="34" Count="10" />
       <LineId Id="65" Count="0" />
       <LineId Id="61" Count="0" />
       <LineId Id="64" Count="0" />
