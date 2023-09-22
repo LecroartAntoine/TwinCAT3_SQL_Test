@@ -4,9 +4,22 @@
     <Declaration><![CDATA[PROGRAM PeriodicMesure
 VAR
 	fbSQLDatabase : FB_SQLDatabaseEvt(sNetID := '', tTimeout := T#5S);
+
 	fbSQLCommand : FB_SQLCommandEvt(sNetID := '', tTimeOut := T#5S);
+
 	step : (OPEN_CONNECTION, CREATE_MESURE, INSERT_MESURE, CLOSE_CONNECTION, FINISH) := OPEN_CONNECTION;
+	CMD_25 : STRING(5000);
+	CMD_20 : STRING(5000);
 	CMD : STRING(5000);
+	
+	iVR25Value AT %I* : INT;
+	iVR20Value AT %I* : INT;
+	
+	rVR25True : REAL;
+	rVR20True : REAL;
+	
+	bVR25On AT %Q* : BOOL := TRUE;
+	bVR20On AT %Q* : BOOL := TRUE;
 
 END_VAR]]></Declaration>
     <Implementation>
@@ -25,8 +38,13 @@ END_VAR]]></Declaration>
 		
 	INSERT_MESURE:
 	
-		CMD := 'INSERT INTO mesure (date_str) VALUES (CONVERT(varchar(20), GETDATE(), 108));';
+		rVR25True := iVR25Value * 0.000488296151 * 1.5625;
+		rVR20True := iVR20Value * 0.000488296151 * 1.25;
+	
+		CMD_25 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING(F_GetSystemTime())), WSTRING_TO_STRING(", 'mm/S', 'VR25', ")), REAL_TO_STRING(rVR25True)), ' );');
+		CMD_20 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING(F_GetSystemTime())), WSTRING_TO_STRING(", 'mm/S', 'VR20', ")), REAL_TO_STRING(rVR20True)), ' );');
 		
+		CMD := CONCAT(CMD_25, CMD_20);
 		
 		IF fbSQLCommand.Execute(ADR(CMD), SIZEOF(CMD)) THEN
 			step := CLOSE_CONNECTION;
@@ -59,8 +77,11 @@ END_IF]]></ST>
       <LineId Id="16" Count="2" />
       <LineId Id="60" Count="0" />
       <LineId Id="19" Count="9" />
+      <LineId Id="84" Count="2" />
       <LineId Id="31" Count="0" />
-      <LineId Id="34" Count="10" />
+      <LineId Id="34" Count="2" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="37" Count="7" />
       <LineId Id="65" Count="0" />
       <LineId Id="61" Count="0" />
       <LineId Id="64" Count="0" />
