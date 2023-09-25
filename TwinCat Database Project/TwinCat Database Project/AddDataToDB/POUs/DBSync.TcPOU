@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DBSync" Id="{c1e38521-1498-49b4-afde-113214ab9c62}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DBSync
+VAR
+	Process : NT_StartProcess;
+	sTest : STRING(255) := '/C type nul > C:\Users\Administrator\Desktop\test.txt';
+    sExport : STRING(255) := '/C "C:\Program Files\Microsoft SQL Server\DAC\bin\sqlpackage.exe" /Action:Export /ssn:BTN-000T9J25\SQLEXPRESS /sdn:TwinCATSQL /su:User /sp:a /sec:False /stsc:False /tf:C:\Users\Administrator\Desktop\test.bacpac';
+    sImport : STRING(255) := '/C "C:\Program Files\Microsoft SQL Server\DAC\bin\sqlpackage.exe" /Action:Import /tsn:vibra-test.database.windows.net /tdn:vibra-test-DB /tu:vibra /tp:Rdtemis2e25 /sf:C:\Users\Administrator\Desktop\test.bacpac';
+    bExportTrigger : BOOL := FALSE;
+	bImportTrigger : BOOL := FALSE;
+    bError : BOOL;
+    iErrorId : UDINT;
+	bIsBusy : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bExportTrigger THEN
+	Process(
+    	NETID := '', 
+    	PATHSTR := 'C:\Windows\System32\cmd.exe',  
+		COMNDLINE := '/C start cmd /c C:\Users\Administrator\Documents\Scripts\Export.cmd',
+		TMOUT := T#1M,
+    	ERR => bError,            
+    	ERRID => iErrorId,
+		BUSY => bIsBusy       
+	);
+	
+	
+	Process(START:=TRUE);
+    Process(START:=FALSE);
+    bExportTrigger := FALSE;
+	
+ELSIF bImportTrigger THEN
+	Process(
+    	NETID := '', 
+    	PATHSTR := 'C:\Windows\System32\cmd.exe',
+    	COMNDLINE := '/C start cmd /c C:\Users\Administrator\Documents\Scripts\Import.cmd',      
+    	ERR => bError,            
+    	ERRID => iErrorId           
+	);
+    bImportTrigger := FALSE;
+    Process(START:=TRUE);
+    Process(START:=FALSE);
+	
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="DBSync">
+      <LineId Id="20" Count="0" />
+      <LineId Id="30" Count="2" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="58" Count="3" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="38" Count="10" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="36" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

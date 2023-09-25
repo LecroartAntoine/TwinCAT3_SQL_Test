@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{11a8368a-ff2c-4c21-af16-feb83ec5ec04}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	bVR25On AT %Q* : BOOL := TRUE;
+	bVR20On AT %Q* : BOOL := TRUE;
+	
+	iVR25Value AT %I* : INT;
+	iVR20Value AT %I* : INT;
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

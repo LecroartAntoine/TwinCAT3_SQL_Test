@@ -12,15 +12,8 @@ VAR
 	CMD_20 : STRING(5000);
 	CMD : STRING(5000);
 	
-	iVR25Value AT %I* : INT;
-	iVR20Value AT %I* : INT;
-	
 	rVR25True : REAL;
 	rVR20True : REAL;
-	
-	bVR25On AT %Q* : BOOL := TRUE;
-	bVR20On AT %Q* : BOOL := TRUE;
-
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE step OF
@@ -38,8 +31,8 @@ END_VAR]]></Declaration>
 		
 	INSERT_MESURE:
 	
-		rVR25True := iVR25Value * 0.000488296151 * 1.5625;
-		rVR20True := iVR20Value * 0.000488296151 * 1.25;
+		rVR25True := GVL.iVR25Value * 0.000488296151 * 1.5625;
+		rVR20True := GVL.iVR20Value * 0.000488296151 * 1.25;
 	
 		CMD_25 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING(F_GetSystemTime())), WSTRING_TO_STRING(", 'mm/S', 'VR25', ")), REAL_TO_STRING(rVR25True)), ' );');
 		CMD_20 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING(F_GetSystemTime())), WSTRING_TO_STRING(", 'mm/S', 'VR20', ")), REAL_TO_STRING(rVR20True)), ' );');

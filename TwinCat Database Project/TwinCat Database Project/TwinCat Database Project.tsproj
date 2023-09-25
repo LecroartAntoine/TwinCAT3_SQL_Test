@@ -2,7 +2,7 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.50">
 	<DataTypes>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000001}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..0] OF BIT</Name>
 			<BitSize>1</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -11,7 +11,7 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
 			<BitSize>5</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -44,31 +44,45 @@
 		</System>
 		<Plc>
 			<Project GUID="{59B2C31B-5693-434C-9605-19122633ED50}" Name="AddDataToDB" PrjFilePath="AddDataToDB\AddDataToDB.plcproj" TmcFilePath="AddDataToDB\AddDataToDB.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="AddDataToDB\AddDataToDB.tmc" TmcHash="{F09013FF-26A4-2940-F89A-B071E97427B0}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="AddDataToDB\AddDataToDB.tmc" TmcHash="{03D77BB2-0B66-8386-6E69-0204BB72C1AF}">
 					<Name>AddDataToDB Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>PeriodicMesure.iVR25Value</Name>
+							<Name>GVL.iVR25Value</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>PeriodicMesure.iVR20Value</Name>
+							<Name>GVL.iVR20Value</Name>
 							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>PeriodicMesure.bVR25On</Name>
+							<Name>GVL.bVR25On</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>PeriodicMesure.bVR20On</Name>
+							<Name>GVL.bVR20On</Name>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
+					<UnrestoredVarLinks ImportTime="2023-09-25T09:59:39">
+						<OwnerA Name="InputDst" Prefix="TIPC^AddDataToDB^AddDataToDB Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 3 (EL3124)">
+								<Link VarA="PeriodicMesure.iVR20Value" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="AI Standard Channel 2^Value" RestoreInfo="ANotFound"/>
+								<Link VarA="PeriodicMesure.iVR25Value" TypeA="INT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000006}" VarB="AI Standard Channel 1^Value" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+						<OwnerA Name="OutputSrc" Prefix="TIPC^AddDataToDB^AddDataToDB Instance" Type="2">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL2014)">
+								<Link VarA="PeriodicMesure.bVR20On" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="DIG Outputs^Channel 2^Output" Size="1" RestoreInfo="ANotFound"/>
+								<Link VarA="PeriodicMesure.bVR25On" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="DIG Outputs^Channel 1^Output" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
 					<Contexts>
 						<Context>
 							<Id>0</Id>
@@ -429,12 +443,12 @@ Bit1: Value smaller than Limit2]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^AddDataToDB^AddDataToDB Instance">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL2014)">
-				<Link VarA="PlcTask Outputs^PeriodicMesure.bVR20On" VarB="DIG Outputs^Channel 2^Output"/>
-				<Link VarA="PlcTask Outputs^PeriodicMesure.bVR25On" VarB="DIG Outputs^Channel 1^Output"/>
+				<Link VarA="PlcTask Outputs^GVL.bVR20On" VarB="DIG Outputs^Channel 2^Output"/>
+				<Link VarA="PlcTask Outputs^GVL.bVR25On" VarB="DIG Outputs^Channel 1^Output"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 3 (EL3124)">
-				<Link VarA="PlcTask Inputs^PeriodicMesure.iVR20Value" VarB="AI Standard Channel 2^Value"/>
-				<Link VarA="PlcTask Inputs^PeriodicMesure.iVR25Value" VarB="AI Standard Channel 1^Value"/>
+				<Link VarA="PlcTask Inputs^GVL.iVR20Value" VarB="AI Standard Channel 2^Value"/>
+				<Link VarA="PlcTask Inputs^GVL.iVR25Value" VarB="AI Standard Channel 1^Value"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

@@ -2,9 +2,11 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{9ad4ba43-e79f-4762-b016-8ed016718c25}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
+VAR
+END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[pTimer();]]></ST>
+      <ST><![CDATA[DBSync();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
