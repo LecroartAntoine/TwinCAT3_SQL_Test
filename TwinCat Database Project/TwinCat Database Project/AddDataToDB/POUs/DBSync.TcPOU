@@ -2,13 +2,13 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="DBSync" Id="{c1e38521-1498-49b4-afde-113214ab9c62}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM DBSync
+VAR_INPUT
+	bExportTrigger : BOOL ;
+	bImportTrigger : BOOL ;
+END_VAR
 VAR
 	Process : NT_StartProcess;
-	sTest : STRING(255) := '/C type nul > C:\Users\Administrator\Desktop\test.txt';
-    sExport : STRING(255) := '/C "C:\Program Files\Microsoft SQL Server\DAC\bin\sqlpackage.exe" /Action:Export /ssn:BTN-000T9J25\SQLEXPRESS /sdn:TwinCATSQL /su:User /sp:a /sec:False /stsc:False /tf:C:\Users\Administrator\Desktop\test.bacpac';
-    sImport : STRING(255) := '/C "C:\Program Files\Microsoft SQL Server\DAC\bin\sqlpackage.exe" /Action:Import /tsn:vibra-test.database.windows.net /tdn:vibra-test-DB /tu:vibra /tp:Rdtemis2e25 /sf:C:\Users\Administrator\Desktop\test.bacpac';
-    bExportTrigger : BOOL := FALSE;
-	bImportTrigger : BOOL := FALSE;
+
     bError : BOOL;
     iErrorId : UDINT;
 	bIsBusy : BOOL;

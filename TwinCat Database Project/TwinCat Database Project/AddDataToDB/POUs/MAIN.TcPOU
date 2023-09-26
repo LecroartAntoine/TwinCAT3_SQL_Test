@@ -3,13 +3,33 @@
   <POU Name="MAIN" Id="{9ad4ba43-e79f-4762-b016-8ed016718c25}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	bStartExport : BOOL;
+	bStartImport : BOOL;
+	bStartAquisition : BOOL;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[DBSync();]]></ST>
+      <ST><![CDATA[IF bStartExport THEN
+	bStartExport := FALSE;
+	DBSync(bExportTrigger := TRUE);
+ELSIF bStartImport THEN
+	bStartImport := FALSE;
+	DBSync(bImportTrigger := TRUE);
+ELSIF bStartAquisition THEN
+	pTimer();
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="10" Count="0" />
+      <LineId Id="34" Count="0" />
       <LineId Id="2" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="2" />
+      <LineId Id="19" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="pTimer" Id="{8fcbf0f7-6c45-4986-b034-e15f9132d3c4}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM pTimer
-VAR
+VAR_INPUT
 	timer : TON;
 END_VAR
 ]]></Declaration>
