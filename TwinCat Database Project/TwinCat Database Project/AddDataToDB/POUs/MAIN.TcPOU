@@ -6,7 +6,6 @@ VAR
 	bStartExport : BOOL;
 	bStartImport : BOOL;
 	bStartAquisition : BOOL;
-
 END_VAR
 ]]></Declaration>
     <Implementation>

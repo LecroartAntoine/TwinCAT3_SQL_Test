@@ -3,10 +3,10 @@
   <ID>1</ID>
   <Name>DB</Name>
   <ServerName>localhost\SQLEXPRESS</ServerName>
-  <DatabaseName>TwinCATSQL</DatabaseName>
+  <DatabaseName>SensorDataFabrics</DatabaseName>
   <TableName />
   <Authentication>True</Authentication>
-  <UserID>User</UserID>
+  <UserID />
   <Password>5P9UdyJB8xE=</Password>
   <Driver />
   <Provider>SQLOLEDB</Provider>
@@ -21,13 +21,16 @@
   <DBValueType>NONE</DBValueType>
   <DBType>MS_Server</DBType>
   <OdbcSubType>Unknown</OdbcSubType>
-  <DriverType>Unknown</DriverType>
+  <DriverType>OleDB</DriverType>
   <Temporary>False</Temporary>
   <Disabled>False</Disabled>
   <Description />
   <FailOverDBID>0</FailOverDBID>
-  <AdditionalParameter />
-  <AuthenticationMechanism>None</AuthenticationMechanism>
+  <AdditionalParameter>
+    <Parameter Name="User Id" Value="User" Type="standard" />
+    <Parameter Name="Password" Value="a" Type="password" />
+  </AdditionalParameter>
+  <AuthenticationMechanism>UserNamePassword</AuthenticationMechanism>
   <SslCa />
   <SslCertificateFilePath />
   <SslCertificatePassword />

@@ -8,12 +8,16 @@ VAR
 	fbSQLCommand : FB_SQLCommandEvt(sNetID := '', tTimeOut := T#5S);
 
 	step : (OPEN_CONNECTION, CREATE_MESURE, INSERT_MESURE, CLOSE_CONNECTION, FINISH) := OPEN_CONNECTION;
-	CMD_25 : STRING(5000);
-	CMD_20 : STRING(5000);
-	CMD : STRING(5000);
+	CMD25 : STRING(255);
+	CMD20 : STRING(255);
+	CMD : STRING(1000);
 	
 	rVR25True : REAL;
 	rVR20True : REAL;
+	
+	jsonString : STRING(5000);
+	
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE step OF
@@ -30,14 +34,65 @@ END_VAR]]></Declaration>
 		END_IF
 		
 	INSERT_MESURE:
+		
+		// Convert raw value to mm/s
 	
 		rVR25True := GVL.iVR25Value * 0.000488296151 * 1.5625;
 		rVR20True := GVL.iVR20Value * 0.000488296151 * 1.25;
-	
-		CMD_25 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING((F_GetSystemTime() - 116444736000000000) / 10000000)), WSTRING_TO_STRING(", 'mm/S', 'VR25', ")), REAL_TO_STRING(rVR25True)), ' );');
-		CMD_20 := CONCAT(CONCAT(CONCAT(CONCAT('INSERT INTO mesure_bis (timestamp, unit, sensor, measure) VALUES (', ULINT_TO_STRING((F_GetSystemTime() - 116444736000000000) / 10000000)), WSTRING_TO_STRING(", 'mm/S', 'VR20', ")), REAL_TO_STRING(rVR20True)), ' );');
 		
-		CMD := CONCAT(CMD_25, CMD_20);
+		// Creating jsonString VR25
+		
+		jsonString := CONCAT('$'{"type":"', GVL.sTypeVR25);
+		jsonString := CONCAT(jsonString, '","uom":"');
+		jsonString := CONCAT(jsonString, GVL.sUomVR25);
+		jsonString := CONCAT(jsonString, '","value":');
+		jsonString := CONCAT(jsonString, REAL_TO_STRING(rVR25True));
+		jsonString := CONCAT(jsonString, '}$'');
+		
+		// Creating SQL Query VR25
+	
+		CMD25 := CONCAT('INSERT INTO Tag (timestampStart, json_data, id_client, id_machine, id_daq, id_plant, id_image) VALUES (',ULINT_TO_STRING(F_GetSystemTime()));
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, jsonString);
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, INT_TO_STRING(GVL.iIDClient));
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, INT_TO_STRING(GVL.iIDMachine));
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, INT_TO_STRING(GVL.iIDDAQVR25));
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, INT_TO_STRING(GVL.iIDPlant));
+		CMD25 := CONCAT(CMD25, ',');
+		CMD25 := CONCAT(CMD25, INT_TO_STRING(GVL.iIDImageVR25));
+		CMD25 := CONCAT(CMD25, ');');
+		
+		// Creating jsonString VR20
+		
+		jsonString := CONCAT('$'{"type":"', GVL.sTypeVR20);
+		jsonString := CONCAT(jsonString, '","uom":"');
+		jsonString := CONCAT(jsonString, GVL.sUomVR20);
+		jsonString := CONCAT(jsonString, '","value":');
+		jsonString := CONCAT(jsonString, REAL_TO_STRING(rVR20True));
+		jsonString := CONCAT(jsonString, '}$'');
+		
+		// Creating SQL Query VR20
+		
+		CMD20 := CONCAT('INSERT INTO Tag (timestampStart, json_data, id_client, id_machine, id_daq, id_plant, id_image) VALUES (',ULINT_TO_STRING(F_GetSystemTime()));
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, jsonString);
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, INT_TO_STRING(GVL.iIDClient));
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, INT_TO_STRING(GVL.iIDMachine));
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, INT_TO_STRING(GVL.iIDDAQVR20));
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, INT_TO_STRING(GVL.iIDPlant));
+		CMD20 := CONCAT(CMD20, ',');
+		CMD20 := CONCAT(CMD20, INT_TO_STRING(GVL.iIDImageVR20));
+		CMD20 := CONCAT(CMD20, ');');
+		
+		CONCAT2(ADR(CMD25), ADR(CMD20), ADR(CMD), SIZEOF(CMD));
 		
 		IF fbSQLCommand.Execute(ADR(CMD), SIZEOF(CMD)) THEN
 			step := CLOSE_CONNECTION;
@@ -70,9 +125,28 @@ END_IF]]></ST>
       <LineId Id="16" Count="2" />
       <LineId Id="60" Count="0" />
       <LineId Id="19" Count="9" />
-      <LineId Id="84" Count="2" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="126" Count="1" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="124" Count="1" />
+      <LineId Id="116" Count="2" />
+      <LineId Id="120" Count="3" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="171" Count="0" />
       <LineId Id="31" Count="0" />
-      <LineId Id="34" Count="2" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="132" Count="3" />
+      <LineId Id="143" Count="7" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="172" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="166" Count="4" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="130" Count="1" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="151" Count="12" />
+      <LineId Id="35" Count="1" />
       <LineId Id="94" Count="1" />
       <LineId Id="37" Count="7" />
       <LineId Id="65" Count="0" />

@@ -3,11 +3,29 @@
   <GVL Name="GVL" Id="{11a8368a-ff2c-4c21-af16-feb83ec5ec04}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	bVR25On AT %Q* : BOOL := TRUE;
-	bVR20On AT %Q* : BOOL := TRUE;
+	bVR25On AT %Q* : BOOL := TRUE; // Switch on/off capteur VR25
+	bVR20On AT %Q* : BOOL := TRUE; // Switch on/off capteur VR20
 	
-	iVR25Value AT %I* : INT;
-	iVR20Value AT %I* : INT;
+	iVR25Value AT %I* : INT; // Valeur Brute VR25 depuis EL3124
+	iVR20Value AT %I* : INT; // Valeur Brute VR20 depuis EL3124
+	
+	iIDClient : INT := 1; // ID Client dans BDD
+	
+	iIDPlant : INT := 1; // ID Plant dans BDD
+	
+	iIDMachine : INT := 1; // ID Machine dans BDD
+	
+	iIDImageVR25 : INT := 1; // ID Image VR25 dans BDD
+	iIDImageVR20 : INT := 2; // ID Image VR20 dans BDD
+	
+	iIDDAQVR25 : INT := 1; // ID DAQ VR25 dans BDD
+	iIDDAQVR20 : INT := 2; // ID DAQ VR20 dans BDD
+	
+	sTypeVR25 : STRING := 'Acceleration'; // Type de mesure par VR25 dans JSON
+	sTypeVR20 : STRING := 'Acceleration'; // Type de mesure par VR20 dans JSON
+	
+	sUomVR25 : STRING := 'mm/s'; // Unité de mesure par VR25 dans JSON
+	sUomVR20 : STRING := 'mm/s'; // Unité de mesure par VR20 dans JSON
 	
 END_VAR]]></Declaration>
   </GVL>
